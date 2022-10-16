@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block head_title %}
+        {% endblock head_title %}
+    </title>
+</head>
+<body>
+    <b>NEWS PORTAL</b>
+
+    <!-- Page title wrapper-->
+    <div id="page-title-wrapper">
+        <!-- Page content-->
+        {% block title %}
+        {% endblock title %}
+    </div>
+
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+        <!-- Page content-->
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

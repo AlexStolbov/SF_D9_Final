@@ -1,0 +1,15 @@
+{% extends 'default.html' %}
+
+{% block content %}
+    <h1>{{ header_text}}</h1>
+    <hr>
+    {% if post_type_valid %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <p>Удаляем "{{ object.title }}"?</p>
+            <input type="submit" value="Delete"/>
+        </form>
+    {% else %}
+        <h1>Пост типа {{ post_type }} с кодом {{ post_pk }} не найден</h1>
+    {% endif %}
+{% endblock content %}

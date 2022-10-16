@@ -1,0 +1,19 @@
+{% extends 'default.html' %}
+{% load custom_filters %}
+
+{% block content %}
+
+    <h1>{{ header_text }}</h1>
+
+    {% if post_type_valid %}
+        <hr>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Save">
+        </form>
+    {% else %}
+        <h1>Пост типа {{ post_type }} с кодом {{ post_pk }} не найден</h1>
+    {% endif %}
+
+{% endblock content %}

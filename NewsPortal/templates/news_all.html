@@ -1,0 +1,76 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'default.html' %}
+
+{% block content %}
+    {% load custom_filters %}
+
+    News
+
+    <h3> Количество новостей: {{ posts|length }} </h3>
+
+    <hr>
+    {% if posts %}
+        <table> <!-- Начинаем описывать таблицу -->
+            <tr> <!-- Добавляем строку -->
+                <td>Заголовок</td>
+                <td>Создана</td>
+                <td>Кратко</td>
+                <td>Категория</td>
+                <td>Автор</td>
+                <td>Тип статьи</td>
+                <td>Рейтинг</td>
+            </tr>
+
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title|censor }}</td>
+                    <td>{{ post.created|date:'d M Y' }}</td>
+                    <td>{{ post.preview|censor }}</td>
+                    <td>{{ post.category|show_categories }}</td>
+                    <td>{{ post.author.user.username }}</td>
+                    <td>{{ post.type }}</td>
+                    <td>{{ post.rating }}</td>
+                </tr>
+            {% endfor %}
+        </table> <!-- ... и таблицы -->
+
+        {# Добавляем пагинацию на страницу #}
+        <hr>
+        Страницы:
+        {# Информация о предыдущих страницах #}
+        {% if page_obj.has_previous %}
+            <a href="?page=1">1</a>
+            {% if page_obj.previous_page_number != 1 %}
+                ...
+                <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+            {% endif %}
+        {% endif %}
+
+        {# Информация о текущей странице #}
+        <b>{{ page_obj.number }}</b>
+
+        {# Информация о следующих страницах #}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+            {% if paginator.num_pages != page_obj.next_page_number %}
+                ...
+                <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+            {% endif %}
+        {% endif %}
+
+
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+
+    {% if is_not_premium %}
+        <h2>
+            <button><a href="sign/add_to_authors/"> Стать автором!</a></button>
+        </h2>
+    {% endif %}
+
+    <h2>
+        <button><a href="logout/">Выйти</a></button>
+    </h2>
+{% endblock content %}
+

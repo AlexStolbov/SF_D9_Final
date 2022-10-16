@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<h2>Новость: {{ post.title }}</h2>
+<a href="http://{{ domain }}/portal/news/{{ post.id }}/edit">{{ post.content|truncatechars:50 }}</a>
+</body>
+</html>
